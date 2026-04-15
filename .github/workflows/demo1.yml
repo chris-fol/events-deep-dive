@@ -2,7 +2,18 @@ name: Events Demo 1
 on:
   pull_request:
     types: opened
+    branches:
+      - main
+      - 'dev-*'
+      - 'feat/**' #double * includes / character
   workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'dev-*'
+      - 'feat/**' #double * includes / character
+    paths-ignore: #if push includes this file, don't trigger
+      - '.github/workflows/*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -19,4 +30,3 @@ jobs:
         run: npm run build
       - name: Deploy project
         run: echo "Deploying..."
-        
